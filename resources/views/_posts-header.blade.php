@@ -21,7 +21,7 @@
 
                 @foreach($categories as $category)
                     <x-dropdown-item 
-                        href="/categories/{{ $category->slug }}"
+                        href="/?category={{ $category->slug }}"
                         :active="isset($currentCategory) && $currentCategory->is($category)" {{-- Take note of this vs {{  }} --}}
                         {{-- :active = request()->is('categories/' . $category->slug) --}}
                         >

@@ -21,15 +21,8 @@ use App\Http\Controllers\PostController;
 */
 
 Route::get('/', [PostController::class, 'index'])->name('home');
-Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
-Route::get('/categories/{category:slug}', fn (Category $category) =>
-    view('posts', [
-        'posts' => $category->posts,
-        'categories' => Category::all(),
-        'currentCategory' => $category
-    ])
-)->name('category');
+Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
 Route::get('/posts/authors/{author:username}', function (User $author) {
     return view('posts', [
