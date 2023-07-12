@@ -21,7 +21,7 @@
 
                 @foreach($categories as $category)
                     <x-dropdown-item 
-                        href="/?category={{ $category->slug }}"
+                        href="/?category={{ $category->slug }}&{{ http_build_query(request()->except('category')) }}"
                         :active="isset($currentCategory) && $currentCategory->is($category)" {{-- Take note of this vs {{  }} --}}
                         {{-- :active = request()->is('categories/' . $category->slug) --}}
                         >
@@ -53,7 +53,11 @@
         --}}
         <!-- Search -->
         <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-3 py-2">
-            <form method="GET" action="#">
+            <form method="GET" action="/">
+                @if (request('category'))
+                    <input type="hidden" name="category" value="{{ request('category') }}">
+                @endif
+
                 <input type="text" name="search" 
                 placeholder="Find something" 
                 class="bg-transparent placeholder-black font-semibold text-sm"
