@@ -26,9 +26,10 @@ class Post extends Model
     {
         // note the arrow function, read more about this query->when thing, how the $search comes in?
         $query->when($filters['search'] ?? false, fn ($query, $search) => 
-            $query
-                ->where('title', 'like', '%' . $search . '%')
+            $query->where(fn($query) => 
+                $query->where('title', 'like', '%' . $search . '%')
                 ->orWhere('body', 'like', '%' . $search . '%')
+            )
             );
 
 
